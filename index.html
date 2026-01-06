@@ -10,7 +10,7 @@
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
-            min-height: 100vh; /* changed to min-height for mobile scrolling */
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -19,7 +19,7 @@
             background: linear-gradient(-45deg, #020024, #090979, #00d4ff, #8a2be2);
             background-size: 400% 400%;
             animation: auraMove 10s ease infinite;
-            overflow-x: hidden; /* Only hide horizontal overflow */
+            overflow-x: hidden;
             perspective: 1200px; 
         }
 
@@ -41,7 +41,7 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             max-width: 650px;
             width: 85%;
-            margin: 20px 0; /* Margin for mobile spacing */
+            margin: 20px 0;
             position: relative;
             z-index: 2;
             transition: transform 0.1s ease-out;
@@ -115,7 +115,6 @@
             text-shadow: 0 5px 10px rgba(0,0,0,0.5);
         }
 
-        /* --- CONTACT FORM STYLES --- */
         .glass-form {
             transform: translateZ(50px);
             text-align: left;
@@ -129,7 +128,7 @@
         .glass-input {
             width: 100%;
             padding: 12px;
-            box-sizing: border-box; /* Ensures padding doesn't break width */
+            box-sizing: border-box;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 10px;
@@ -200,12 +199,26 @@
         .delay-3 { animation-delay: 0.6s; --z-depth: 30px; }
         .delay-4 { animation-delay: 0.8s; --z-depth: 50px; }
 
+        .ios-instruction {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            pointer-events: none;
+            opacity: 0;
+            animation: fadeIn 2s 1s forwards;
+        }
+        @keyframes fadeIn { to { opacity: 1; } }
+
     </style>
 </head>
 <body>
 
     <div class="container" id="tilt-card">
-        <img src="Logo.png" alt="Aura Infotech" class="logo animate-up delay-logo">
+        <img src="logo.png" alt="Aura Infotech" class="logo animate-up delay-logo">
 
         <p class="subtitle animate-up delay-1">
             We are redefining digital excellence.<br>
@@ -221,7 +234,7 @@
             Graphic Designing • Web Design • Analytics • Data Analysis
         </p>
 
-        <form class="glass-form animate-up delay-4" action="https://formspree.io/f/INSERT_YOUR_FORMSPREE_ID_HERE" method="POST">
+        <form class="glass-form animate-up delay-4" action="https://formspree.io/f/mpqwvzzd" method="POST">
             <div class="input-group">
                 <input type="email" name="email" class="glass-input" placeholder="Your Email Address" required>
             </div>
@@ -230,12 +243,14 @@
             </div>
             <button type="submit" class="submit-btn">Send Message</button>
         </form>
-
     </div>
+
+    <div class="ios-instruction" id="ios-hint">Tap anywhere to enable 3D effects</div>
 
     <script>
         const card = document.getElementById('tilt-card');
         const container = document.body;
+        const hint = document.getElementById('ios-hint');
 
         container.addEventListener('mousemove', (e) => {
             const { clientX, clientY } = e;
@@ -252,7 +267,7 @@
              card.style.transform = `rotateX(0deg) rotateY(0deg)`;
         });
 
-        window.addEventListener("deviceorientation", (e) => {
+        function handleOrientation(e) {
             if (e.beta !== null && e.gamma !== null) {
                 let xTilt = e.beta - 45;
                 let yTilt = e.gamma;
@@ -264,7 +279,31 @@
 
                 card.style.transform = `rotateX(${-xTilt}deg) rotateY(${yTilt}deg)`;
             }
-        });
+        }
+
+        // PERMISSION HANDLER FOR IOS 13+
+        function requestPermission() {
+            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                // If on iOS 13+
+                DeviceOrientationEvent.requestPermission()
+                    .then(response => {
+                        if (response === 'granted') {
+                            window.addEventListener('deviceorientation', handleOrientation);
+                            if(hint) hint.style.display = 'none';
+                        }
+                    })
+                    .catch(console.error);
+            } else {
+                // Non-iOS 13+ devices (Android, older iOS)
+                window.addEventListener('deviceorientation', handleOrientation);
+                if(hint) hint.style.display = 'none';
+            }
+        }
+
+        // Add a click listener to the entire body to trigger permission request
+        document.body.addEventListener('click', requestPermission, { once: true });
+        document.body.addEventListener('touchstart', requestPermission, { once: true });
+
     </script>
 
 </body>
