@@ -199,20 +199,6 @@
         .delay-3 { animation-delay: 0.6s; --z-depth: 30px; }
         .delay-4 { animation-delay: 0.8s; --z-depth: 50px; }
 
-        .ios-instruction {
-            position: fixed;
-            bottom: 20px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.6);
-            pointer-events: none;
-            opacity: 0;
-            animation: fadeIn 2s 1s forwards;
-        }
-        @keyframes fadeIn { to { opacity: 1; } }
-
     </style>
 </head>
 <body>
@@ -245,12 +231,9 @@
         </form>
     </div>
 
-    <div class="ios-instruction" id="ios-hint">Tap anywhere to enable 3D effects</div>
-
     <script>
         const card = document.getElementById('tilt-card');
         const container = document.body;
-        const hint = document.getElementById('ios-hint');
 
         container.addEventListener('mousemove', (e) => {
             const { clientX, clientY } = e;
@@ -266,44 +249,6 @@
         container.addEventListener('mouseleave', () => {
              card.style.transform = `rotateX(0deg) rotateY(0deg)`;
         });
-
-        function handleOrientation(e) {
-            if (e.beta !== null && e.gamma !== null) {
-                let xTilt = e.beta - 45;
-                let yTilt = e.gamma;
-
-                if (xTilt > 25) xTilt = 25;
-                if (xTilt < -25) xTilt = -25;
-                if (yTilt > 25) yTilt = 25;
-                if (yTilt < -25) yTilt = -25;
-
-                card.style.transform = `rotateX(${-xTilt}deg) rotateY(${yTilt}deg)`;
-            }
-        }
-
-        // PERMISSION HANDLER FOR IOS 13+
-        function requestPermission() {
-            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                // If on iOS 13+
-                DeviceOrientationEvent.requestPermission()
-                    .then(response => {
-                        if (response === 'granted') {
-                            window.addEventListener('deviceorientation', handleOrientation);
-                            if(hint) hint.style.display = 'none';
-                        }
-                    })
-                    .catch(console.error);
-            } else {
-                // Non-iOS 13+ devices (Android, older iOS)
-                window.addEventListener('deviceorientation', handleOrientation);
-                if(hint) hint.style.display = 'none';
-            }
-        }
-
-        // Add a click listener to the entire body to trigger permission request
-        document.body.addEventListener('click', requestPermission, { once: true });
-        document.body.addEventListener('touchstart', requestPermission, { once: true });
-
     </script>
 
 </body>
