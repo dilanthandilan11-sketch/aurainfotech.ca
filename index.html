@@ -207,6 +207,20 @@
         container.addEventListener('mouseleave', () => {
              card.style.transform = `rotateX(0deg) rotateY(0deg)`;
         });
+
+        window.addEventListener("deviceorientation", (e) => {
+            if (e.beta !== null && e.gamma !== null) {
+                let xTilt = e.beta - 45;
+                let yTilt = e.gamma;
+
+                if (xTilt > 25) xTilt = 25;
+                if (xTilt < -25) xTilt = -25;
+                if (yTilt > 25) yTilt = 25;
+                if (yTilt < -25) yTilt = -25;
+
+                card.style.transform = `rotateX(${-xTilt}deg) rotateY(${yTilt}deg)`;
+            }
+        });
     </script>
 
 </body>
