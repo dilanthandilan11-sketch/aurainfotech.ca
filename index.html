@@ -3,224 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Coming Soon - Aura Info Tech</title>
-    
-    <link rel="icon" href="logo-only.png" type="image/png">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
+    <title>Aura Infotech - Coming Soon</title>
+    <link rel="icon" type="image/png" href="logo-only.png">
     <style>
-        /* CSS STYLES START HERE */
-        
-        /* Reset basic settings */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: #000000;
-            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
+            margin: 0;
             text-align: center;
         }
-
         .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            max-width: 500px;
             width: 90%;
-            max-width: 800px;
-            padding: 20px;
+            backdrop-filter: blur(10px);
         }
-
-        /* Logo Area */
+        
+        /* NEW: Logo Styles */
         .logo {
-            margin-bottom: 40px;
-        }
-
-        /* Logo Image Styling */
-        /* If your logo is too big, change '200px' to a smaller number */
-        .logo img {
-            max-width: 200px; 
+            width: 120px; /* Adjust this size as needed */
             height: auto;
-            display: block;
-            margin: 0 auto;
+            margin-bottom: 20px;
+            border-radius: 10px; /* Optional: rounds the corners of the logo */
         }
 
-        /* Main Headings */
         h1 {
-            font-size: 3rem;
-            font-weight: 600;
-            letter-spacing: 2px;
+            font-size: 2.5rem;
             margin-bottom: 10px;
-            text-transform: uppercase;
+            margin-top: 0;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #e0e0e0;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            margin: 20px 0;
+            height: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            width: 75%; 
+            height: 100%;
+            background-color: #4CAF50;
+            border-radius: 20px;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            animation: load 2s ease-out;
         }
 
-        .subtitle {
-            font-size: 1.1rem;
-            color: #555;
-            margin-bottom: 50px;
-            font-weight: 300;
+        @keyframes load {
+            from { width: 0; }
+            to { width: 75%; }
         }
 
-        /* Countdown Timer Layout */
-        .countdown {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 50px;
-            font-weight: 300;
-        }
-
-        .time-box {
-            display: flex;
-            flex-direction: column;
-            margin: 0 15px;
-        }
-
-        .time-box span:first-child {
-            font-size: 2.5rem; 
-            font-weight: 400;
-        }
-
-        .label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: #777;
-            margin-top: 5px;
-        }
-
-        .colon {
-            font-size: 2rem;
-            margin-top: -25px; 
-        }
-
-        /* Form Styling */
-        form {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        input {
-            padding: 12px 15px;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 250px;
-            outline: none;
-        }
-
-        button {
+        .contact-btn {
+            display: inline-block;
+            margin-top: 20px;
             padding: 12px 25px;
-            font-size: 1rem;
-            background-color: #000;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.3s ease;
+            background-color: white;
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 25px;
+            transition: transform 0.2s;
         }
-
-        button:hover {
-            background-color: #333;
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            .countdown { flex-wrap: wrap; }
-            .time-box span:first-child { font-size: 1.5rem; }
-            .colon { display: none; } 
-            form { flex-direction: column; align-items: center; }
-            input { width: 100%; margin-bottom: 10px; }
-            button { width: 100%; }
+        .contact-btn:hover {
+            transform: scale(1.05);
+            background-color: #f0f0f0;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="logo">
-            <img src="Aura-Info-Tech-Logo.png" alt="Aura Info Tech Logo">
+        <img src="logo.png" alt="Aura Infotech Logo" class="logo">
+
+        <h1>Aura Infotech</h1>
+        <p>We're building something great. Our new website is currently under construction.</p>
+        
+        <div class="progress-container">
+            <div class="progress-bar">75% Complete</div>
         </div>
 
-        <h1>COMING SOON</h1>
-        <p class="subtitle">Our website is under construction. Stay tuned!</p>
+        <p style="font-size: 0.9rem; margin-top: 10px;">System Development • Cloud Solutions • IT Consulting</p>
 
-        <div class="countdown">
-            <div class="time-box">
-                <span id="days">00</span>
-                <span class="label">Days</span>
-            </div>
-            <div class="colon">:</div>
-            <div class="time-box">
-                <span id="hours">00</span>
-                <span class="label">Hours</span>
-            </div>
-            <div class="colon">:</div>
-            <div class="time-box">
-                <span id="minutes">00</span>
-                <span class="label">Minutes</span>
-            </div>
-            <div class="colon">:</div>
-            <div class="time-box">
-                <span id="seconds">00</span>
-                <span class="label">Seconds</span>
-            </div>
-        </div>
-
-        <form name="subscribe" method="POST" data-netlify="true">
-            <input type="hidden" name="form-name" value="subscribe">
-            
-            <input type="email" name="email" placeholder="Email subscription" required>
-            <button type="submit">Notify Me</button>
-        </form>
-
+        <a href="mailto:info@aurainfotech.ca" class="contact-btn">Get In Touch</a>
     </div>
 
-    <script>
-        // JAVASCRIPT STARTS HERE
-
-        // 1. Set the countdown date (30 days from now)
-        const countDownDate = new Date().getTime() + (30 * 24 * 60 * 60 * 1000); 
-
-        // 2. Update the count down every 1 second
-        const x = setInterval(function() {
-
-            // Get today's date and time
-            const now = new Date().getTime();
-
-            // Find the distance between now and the count down date
-            const distance = countDownDate - now;
-
-            // Time calculations for days, hours, minutes and seconds
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            // Display the result
-            document.getElementById("days").innerText = formatTime(days);
-            document.getElementById("hours").innerText = formatTime(hours);
-            document.getElementById("minutes").innerText = formatTime(minutes);
-            document.getElementById("seconds").innerText = formatTime(seconds);
-
-            // If the count down is finished, display message
-            if (distance < 0) {
-                clearInterval(x);
-                document.querySelector(".countdown").innerHTML = "<h2>WE ARE LIVE!</h2>";
-            }
-        }, 1000);
-
-        // Helper function to add a "0" before single digit numbers
-        function formatTime(time) {
-            return time < 10 ? `0${time}` : time;
-        }
-    </script>
 </body>
 </html>
