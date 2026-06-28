@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  reactStrictMode: false,   // 🔥 BIG performance win for R3F
   reactCompiler: true,
+  output: 'export',
 };
 
 export default nextConfig;
