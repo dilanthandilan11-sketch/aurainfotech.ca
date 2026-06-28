@@ -175,6 +175,14 @@ export default function Scene({ freeze = false, scrollProgress = 0 }) {
     const [handData, setHandData]             = useState(null);
     const [rotation, setRotation]             = useState({ x: 0, y: 0, z: 0 });
     const [unfreezeProgress, setUnfreezeProgress] = useState(freeze ? 0 : 1);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
 
     useEffect(() => {
         if (freeze) { setUnfreezeProgress(0); return; }
@@ -270,30 +278,89 @@ export default function Scene({ freeze = false, scrollProgress = 0 }) {
 
             <SceneText scrollProgress={scrollProgress} />
 
-            <div
-                style={{
-                    position: "fixed",
-                    bottom: "30px",
-                    right: "20px",
-                    color: "rgba(255,255,255,0.3)",
-                    fontSize: "11px",
-                    fontFamily: "'Sora', monospace",
-                    pointerEvents: "none",
-                    zIndex: 200,
-                    textAlign: "right",
-                    lineHeight: 1.6,
-                    opacity: Math.max(0, 1 - scrollProgress * 3),
-                    transition: "opacity 0.3s ease",
-                }}
-            >
-                <div>[H] Hand Control: {useHandControl ? "ON" : "OFF"}</div>
-                <div>[R] Reset View</div>
-                {useHandControl && handData && (
-                    <div style={{ marginTop: "5px", color: "rgba(0,174,239,0.6)" }}>
-                        Hand detected
-                    </div>
-                )}
-            </div>
+            {!isMobile && (
+                <div
+                    style={{
+                        position: "fixed",
+                        bottom: "30px",
+                        right: "20px",
+                        color: "rgba(255,255,255,0.3)",
+                        fontSize: "11px",
+                        fontFamily: "'Sora', monospace",
+                        pointerEvents: "none",
+                        zIndex: 200,
+                        textAlign: "right",
+                        lineHeight: 1.6,
+                        opacity: Math.max(0, 1 - scrollProgress * 3),
+                        transition: "opacity 0.3s ease",
+                    }}
+                >
+                    <div>[H] Hand Control: {useHandControl ? "ON" : "OFF"}</div>
+                    <div>[R] Reset View</div>
+                    {useHandControl && handData && (
+                        <div style={{ marginTop: "5px", color: "rgba(0,174,239,0.6)" }}>
+                            Hand detected
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {isMobile && (
+                <div
+                    style={{
+                        position: "fixed",
+                        top: "16px",
+                        right: "16px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "flex-end",
+                        gap: "8px",
+                        zIndex: 200,
+                        opacity: Math.max(0, 1 - scrollProgress * 3),
+                        transition: "opacity 0.3s ease",
+                    }}
+                >
+                    <button
+                        onClick={() => setUseHandControl((prev) => !prev)}
+                        style={{
+                            padding: "8px 14px",
+                            borderRadius: "20px",
+                            border: `1px solid ${useHandControl ? "rgba(0,212,255,0.7)" : "rgba(255,255,255,0.25)"}`,
+                            background: useHandControl ? "rgba(0,212,255,0.2)" : "rgba(0,0,0,0.45)",
+                            color: useHandControl ? "#00d4ff" : "rgba(255,255,255,0.75)",
+                            fontSize: "11px",
+                            fontFamily: "'Sora', sans-serif",
+                            letterSpacing: "0.03em",
+                            backdropFilter: "blur(8px)",
+                            WebkitBackdropFilter: "blur(8px)",
+                        }}
+                    >
+                        Hand Control: {useHandControl ? "ON" : "OFF"}
+                    </button>
+                    <button
+                        onClick={() => setRotation({ x: 0, y: 0, z: 0 })}
+                        style={{
+                            padding: "8px 14px",
+                            borderRadius: "20px",
+                            border: "1px solid rgba(255,255,255,0.25)",
+                            background: "rgba(0,0,0,0.45)",
+                            color: "rgba(255,255,255,0.75)",
+                            fontSize: "11px",
+                            fontFamily: "'Sora', sans-serif",
+                            letterSpacing: "0.03em",
+                            backdropFilter: "blur(8px)",
+                            WebkitBackdropFilter: "blur(8px)",
+                        }}
+                    >
+                        Reset View
+                    </button>
+                    {useHandControl && handData && (
+                        <div style={{ fontSize: "10px", color: "rgba(0,174,239,0.8)", fontFamily: "'Sora', sans-serif" }}>
+                            Hand detected
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 }

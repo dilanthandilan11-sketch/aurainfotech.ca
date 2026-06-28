@@ -99,11 +99,11 @@ function FlipCharacterEnter({ char, index, isVisible, staggerDelay = 100, durati
 // ============================================
 // FLIP TEXT
 // ============================================
-function FlipText({ text, isVisible, startDelay = 0, staggerDelay = 100, charDuration = 600, style = {} }) {
+function FlipText({ text, isVisible, startDelay = 0, staggerDelay = 100, charDuration = 600, style = {}, className }) {
   const characters = useMemo(() => text.split(""), [text]);
 
   return (
-    <span style={{ display: "inline-flex", gap: "0.02em", perspective: "1000px", ...style }}>
+    <span className={className} style={{ display: "inline-flex", gap: "0.02em", perspective: "1000px", ...style }}>
       {characters.map((char, i) => (
         <FlipCharacterEnter
           key={`${char}-${i}`}
@@ -296,6 +296,10 @@ function ResponsiveStyles() {
     style.textContent = `
       .aura-contact-panel { display: none; }
 
+      @media (max-width: 768px) {
+        .aura-subtitle-flip { flex-wrap: wrap !important; }
+      }
+
       @media (min-width: 1200px) {
         .aura-tagline-row {
           flex-wrap: nowrap !important;
@@ -465,7 +469,7 @@ export default function SceneText({ scrollProgress = 0 }) {
         <p
           style={{
             fontFamily: "'Raleway', sans-serif",
-            fontSize: "20px",
+            fontSize: "clamp(13px, 3.6vw, 20px)",
             fontWeight: 100,
             color: "rgba(255, 255, 255, 0.95)",
             marginTop: "25px",
@@ -478,6 +482,7 @@ export default function SceneText({ scrollProgress = 0 }) {
             startDelay={TIMING.SUBHEADLINE}
             staggerDelay={30}
             charDuration={400}
+            className="aura-subtitle-flip"
           />
         </p>
       </div>

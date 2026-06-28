@@ -123,15 +123,16 @@ function BootScreen({ progress }) {
             <div
                 style={{
                     position: "absolute",
-                    right: "60px",
+                    right: "clamp(16px, 6vw, 60px)",
                     top: "50%",
                     transform: "translateY(-50%)",
                     fontFamily: "'JetBrains Mono', 'SF Mono', monospace",
-                    fontSize: "24px",
+                    fontSize: "clamp(11px, 3.2vw, 24px)",
                     fontWeight: 500,
-                    letterSpacing: "0.35em",
+                    letterSpacing: "clamp(0.08em, 0.9vw, 0.35em)",
                     color: "#00d4ff",
                     textAlign: "right",
+                    whiteSpace: "nowrap",
                     textShadow: `0 0 14px rgba(0,212,255,${0.35 * bootProgress})`,
                 }}
             >
@@ -157,15 +158,16 @@ function BootScreen({ progress }) {
             <div
                 style={{
                     position: "absolute",
-                    right: "60px",
+                    right: "clamp(16px, 6vw, 60px)",
                     top: "calc(50% + 40px)",
                     fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: "14px",
+                    fontSize: "clamp(9px, 2.4vw, 14px)",
                     fontWeight: 400,
-                    letterSpacing: "0.2em",
+                    letterSpacing: "clamp(0.08em, 0.6vw, 0.2em)",
                     color: "rgba(0,212,255,0.55)",
                     opacity: subReveal,
                     textAlign: "right",
+                    whiteSpace: "nowrap",
                 }}
             >
                 {subText}

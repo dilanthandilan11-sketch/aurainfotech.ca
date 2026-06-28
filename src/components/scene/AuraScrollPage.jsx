@@ -448,6 +448,7 @@ function ServicesSection({ scrollProgress }) {
 function ScrollIndicator({ visible }) {
   return (
     <div
+      className="aura-scroll-indicator"
       style={{
         position: "fixed",
         bottom: "32px",
@@ -482,6 +483,11 @@ function ScrollIndicator({ visible }) {
           animation: "scrollPulse 2s ease-in-out infinite",
         }}
       />
+      <style>{`
+        @media (max-width: 768px) {
+          .aura-scroll-indicator { display: none !important; }
+        }
+      `}</style>
     </div>
   );
 }
